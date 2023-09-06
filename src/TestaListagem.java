@@ -8,15 +8,15 @@ public class TestaListagem {
 
 	public static void main(String[] args) throws SQLException {
 		
-		Connection con = DriverManager
-				.getConnection("jdbc:mysql://localhost/loja_virtual?useTimezone=true&serverTimezone=UTC","root","admin");
-		System.out.println("Fechando a conexão!!");
+		ConnectionFactory connectionFactory = new ConnectionFactory();
+		Connection connection = connectionFactory.recuperarConexao();
 		
-		Statement stm = con.createStatement();
+		
+		Statement stm = connection.createStatement();
 		
 		 stm.execute("SELECT ID, NOME, DESCRICAO FROM PRODUTO");
 		 
-		 ResultSet  rst = stm.getResultSet();
+		 ResultSet rst = stm.getResultSet();
 		
 		while (rst.next()) {
 			Integer id = rst.getInt("ID");
@@ -27,7 +27,7 @@ public class TestaListagem {
 			System.out.println(descricao);
 		}
 		
-		con.close();
+		connection.close();
 
 	}
 
